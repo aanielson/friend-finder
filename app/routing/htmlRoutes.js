@@ -1,4 +1,4 @@
-var friends = require("..ldata/friends.js");
+var friends = require("..data/friends.js");
 
 // ## Your htmlRoutes.js file should include two routes:
 
