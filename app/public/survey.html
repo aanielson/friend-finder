@@ -209,6 +209,9 @@
             $.post("/api/friends", newFriend)
                 .then(function(data) {
                     console.log("survey.html", data);
+                    ///display info in the modal
+                    $("#match-name").text(data.name);
+                    $("#match-img").attr("src", data.photo);
                 });
         });      
     </script>

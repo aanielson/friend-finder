@@ -1,4 +1,4 @@
-var friends = require("..data/friends.js");
+var friends = require("../data/friends.js");
 // ## Your apiRoutes.js file should contain two routes:
 
 // A GET route with the url /api/friends. 
@@ -38,7 +38,6 @@ module.exports = function (app) {
         //necessary variables
         var userScore = newFriend.scores;
         var friendsDifferences = [];
-        var totalDifference = 0;
         var leastDifference;
         var bestfriend;
         //Add up the differences to calculate the totalDifference.
@@ -49,8 +48,11 @@ module.exports = function (app) {
         // User 2: [3, 2, 6, 4, 5, 1, 2, 5, 4, 1]
         // Total Difference: 2 + 1 + 2 = 5
         for (var i = 0; i < friends.length; i++) {
+            var totalDifference = 0;
             var difference;
             for (var j = 0; j < userScore.length; j++) {
+                // ### Remember to use the absolute value of the differences.
+                //Put another way: no negative solutions! Your app should calculate both 5-3 and 3-5 as 2, and so on.
                 difference = Math.abs(friends[i].scores[x] - userScore[x]);
                 totalDifference += difference;               
             }
@@ -59,27 +61,25 @@ module.exports = function (app) {
             //sort array so that the smallest difference is at the first spot
             friendsDifferences.sort(function(a, b) {
                 return a - b;
-            });
-            //store that smallest difference in a variable
-            leastDifference = friendsDifferences[0];
+            });   
         }
+        // The closest match will be the user with the least amount of difference.
+        //store that smallest difference in a variable
+        leastDifference = friendsDifferences[0];
+
         ///match that least difference with the friend it belongs to
         for (var i = 0; i < friends.length; i++) {
+            var totalDifference = 0;
             var difference;
             for (var j = 0; j < userScore.length; j++) {
                 difference = Math.abs(friends[i].scores[x] - userScore[x]);
-                //once a match is found between the leastDifference and the friends array, that is the bestfriend!
-                if (leastDifference === difference) {
-                    bestfriend = friends[i];
-                    ///display info in the modal
-                    $("#match-name").text(friends[i].name);
-                    $("#match-img").attr("src", friends[i].photo);
-                }
+                totalDifference += difference;  
             }
+            //once a match is found between the leastDifference and the friends array, that is the bestfriend!
+            if (leastDifference === totalDifference) {
+                bestfriend = friends[i];
+                return bestfriend;
+            }  
         }
-        // ### Remember to use the absolute value of the differences.
-        //Put another way: no negative solutions! Your app should calculate both 5-3 and 3-5 as 2, and so on.
-        // The closest match will be the user with the least amount of difference.
-
     });
 }
