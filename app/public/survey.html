@@ -209,7 +209,7 @@
             $.post("/api/friends", newFriend)
                 .then(function(data) {
                     console.log("survey.html", data);
-                    ///display info in the modal
+                    ///display info in the modal after running the post method in apiRoutes.js
                     $("#match-name").text(data.name);
                     $("#match-img").attr("src", data.photo);
                 });

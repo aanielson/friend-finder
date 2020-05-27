@@ -37,9 +37,9 @@ module.exports = function (app) {
 
         //necessary variables
         var userScore = newFriend.scores;
-        var friendsDifferences = [];
-        var leastDifference;
         var bestfriend;
+        var leastDifference = 100;
+        var totalDifference;
         //Add up the differences to calculate the totalDifference.
         // sqrt((q1a-q1b)^2) all the way through 10 = totalDifference + i
             //compare minmum
@@ -47,39 +47,23 @@ module.exports = function (app) {
         // User 1: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]
         // User 2: [3, 2, 6, 4, 5, 1, 2, 5, 4, 1]
         // Total Difference: 2 + 1 + 2 = 5
-        for (var i = 0; i < friends.length; i++) {
-            var totalDifference = 0;
-            var difference;
+        for (var i = 0; i < friends.length; i++) {              
+            totalDifference = 0;
             for (var j = 0; j < userScore.length; j++) {
                 // ### Remember to use the absolute value of the differences.
                 //Put another way: no negative solutions! Your app should calculate both 5-3 and 3-5 as 2, and so on.
-                difference = Math.abs(friends[i].scores[x] - userScore[x]);
-                totalDifference += difference;               
+                totalDifference += Math.abs(parseInt(friends[i].scores[x]) - parseInt(userScore[x]));             
             }
-            //push to an array
-            friendsDifferences.push(totalDifference);
-            //sort array so that the smallest difference is at the first spot
-            friendsDifferences.sort(function(a, b) {
-                return a - b;
-            });   
-        }
-        // The closest match will be the user with the least amount of difference.
-        //store that smallest difference in a variable
-        leastDifference = friendsDifferences[0];
-
-        ///match that least difference with the friend it belongs to
-        for (var i = 0; i < friends.length; i++) {
-            var totalDifference = 0;
-            var difference;
-            for (var j = 0; j < userScore.length; j++) {
-                difference = Math.abs(friends[i].scores[x] - userScore[x]);
-                totalDifference += difference;  
-            }
-            //once a match is found between the leastDifference and the friends array, that is the bestfriend!
-            if (leastDifference === totalDifference) {
+            //least difference will make the default the first friend
+            if (totalDifference < leastDifference) {
+                //once run, the least difference will be replaced with the smallest value
+                //this will give us the best match after going through all friends
+                leastDifference = totalDifference;
+                //store the match in a variable
                 bestfriend = friends[i];
-                return bestfriend;
-            }  
+                //this variable is being exported through the module.exports function
+                //now that data can be used on the server.html jquery to fill in the modal
+            } 
         }
     });
 }
