@@ -30,7 +30,7 @@
         <div class="survey-questions">
             <div class="question">
                 <h3>Question 1</h3>
-                <h4>Fill in with a question</h4>
+                <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
                 <select class="chosen-select" id="q1">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -42,7 +42,7 @@
             </div>
             <div class="question">
                 <h3>Question 2</h3>
-                <h4>Fill in with a question</h4>
+                <h4>Generally speaking, you rely more on your experience than your imagination.</h4>
                 <select class="chosen-select" id="q2">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -54,7 +54,7 @@
             </div>
             <div class="question">
                 <h3>Question 3</h3>
-                <h4>Fill in with a question</h4>
+                <h4>You find it easy to stay relaxed and focused even when there is some pressure.</h4>
                 <select class="chosen-select" id="q3">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -66,7 +66,7 @@
             </div>
             <div class="question">
                 <h3>Question 4</h3>
-                <h4>Fill in with a question</h4>
+                <h4>You rarely do something just out of sheer curiosity.</h4>
                 <select class="chosen-select" id="q4">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -78,7 +78,7 @@
             </div>
             <div class="question">
                 <h3>Question 5</h3>
-                <h4>Fill in with a question</h4>
+                <h4>People can rarely upset you.</h4>
                 <select class="chosen-select" id="q5">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -90,7 +90,7 @@
             </div>
             <div class="question">
                 <h3>Question 6</h3>
-                <h4>Fill in with a question</h4>
+                <h4>It is often difficult for you to relate to other people’s feelings.</h4>
                 <select class="chosen-select" id="q6">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -102,7 +102,7 @@
             </div>
             <div class="question">
                 <h3>Question 7</h3>
-                <h4>Fill in with a question</h4>
+                <h4>In a discussion, truth should be more important than people’s sensitivities.</h4>
                 <select class="chosen-select" id="q7">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -114,7 +114,7 @@
             </div>
             <div class="question">
                 <h3>Question 8</h3>
-                <h4>Fill in with a question</h4>
+                <h4>You rarely get carried away by fantasies and ideas.</h4>
                 <select class="chosen-select" id="q8">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -126,7 +126,7 @@
             </div>
             <div class="question">
                 <h3>Question 9</h3>
-                <h4>Fill in with a question</h4>
+                <h4>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h4>
                 <select class="chosen-select" id="q9">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -138,7 +138,7 @@
             </div>
             <div class="question">
                 <h3>Question 10</h3>
-                <h4>Fill in with a question</h4>
+                <h4>You feel more energetic after spending time with a group of people.</h4>
                 <select class="chosen-select" id="q10">
                     <option value=""></option>
                     <option value="1">1 (Strongly Disagree)</option>
@@ -151,8 +151,8 @@
         </div>
         <br>
     <!--================================Submit Button================================-->
-        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit" data-toggle="modal" data-target="#results-modal">
-            <i class="fa fa-check-circle"></i> Submit
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"  data-toggle="modal" data-target="#results-modal">
+            <i class="fa fa-check-circle" aria-hidden="true"></i> Submit
         </button>     
         <hr>   
     <!--================================API friendslist & GitHub Repo Links================================-->
@@ -167,53 +167,61 @@
         </footer>
     </div>
     <!--================================Modal Display================================-->
-    <div id="results-modal" class="modal fade" role="dialogue" style="display: none;">
-        <div class="modal-dialogue">
+    <div id="results-modal" class="modal fade" role="dialogue">
+        <div class="modal-dialogue modal-dialog-centered modal-lg">
             <!--modal content-->
             <div class="modal-content">
                 <div class="modal-header">
+                    <h2 class="modal-title text-left">Best Match</h2>
                     <button type="button" class="close" data-dismiss="modal">x</button>
-                    <h2 class="modal-title">Best Match</h2>
                 </div>
                 <div class="modal-body">
                     <h2 id="match-name"></h2>
-                    <img id="match-img" alt="match-img">
+                    <img class="img-fluid" id="match-img" src="" alt="friend picture" width="580">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    
 
     <script type="text/javascript">
-        $("#submit").on("submit", function(event) {
-            event.preventDefault();
-            var newFriend = {
-                name: $("#name").val().trim(),
-                photo: $("#photo").val().trim(),
-                scores: [
-                    $("#q1").val(),
-                    $("#q2").val(),
-                    $("#q3").val(),
-                    $("#q4").val(),
-                    $("#q5").val(),
-                    $("#q6").val(),
-                    $("#q7").val(),
-                    $("#q8").val(),
-                    $("#q9").val(),
-                    $("#q10").val()
-                ]
-            };
-
-            $.post("/api/friends", newFriend)
-                .then(function(data) {
-                    console.log("survey.html", data);
-                    ///display info in the modal after running the post method in apiRoutes.js
-                    $("#match-name").text(data.name);
-                    $("#match-img").attr("src", data.photo);
+        function collectInput() {
+            $("#submit").on("submit", function(event) {
+                event.preventDefault();
+                var newFriend = {
+                    name: $("#name").val().trim(),
+                    photo: $("#photo").val().trim(),
+                    scores: []
+                };
+                // Loop through Questions to get scores
+                var scoresArray = [];
+                $('.chosen-select').each(function() {
+                    scoresArray.push( parseInt( $(this).val() ) ); // Parse Input Value as integer
+                })
+                // This counters the async behavior of $.each()
+                .promise().done(function(){
+                    
+                    // Push the array of scores to the new friend object
+                    newFriend.scores = scoresArray;
+                    
+                    // POST the newFriend to the friends.js file and get back the best match
+                    var currentURL = window.location.origin;
+                    $.post(currentURL + "/api/friends", newFriend)
+                        .then(function(data) {
+                        console.log("survey.html", data);
+                        ///display info in the modal after running the post method in apiRoutes.js
+                        $("#match-name").text(data.name);
+                        $("#match-img").attr("src", data.photo);
+                        // Show the modal with the best match 
+                        $("#results-modal").modal('toggle');
+                    });
                 });
-        });      
+            });
+        }
+        collectInput();
     </script>
 </body>
 </html>

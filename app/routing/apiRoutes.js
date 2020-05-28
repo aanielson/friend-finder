@@ -23,7 +23,6 @@ module.exports = function (app) {
         // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
         newFriend = newFriend.name.replace(/\s+/g, "").toLowerCase();
         //more stuff here to pull in form input
-        console.log(newFriend);
         friends.push(newFriend);
         res.json(newFriend);
 
@@ -65,5 +64,6 @@ module.exports = function (app) {
                 //now that data can be used on the server.html jquery to fill in the modal
             } 
         }
+        res.json(bestfriend);
     });
 }
