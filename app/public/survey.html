@@ -150,9 +150,10 @@
             </div>
         </div>
         <br>
-    <!--================================Submit Button================================-->
-        <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"  data-toggle="modal" data-target="#results-modal">
-            <i class="fa fa-check-circle" aria-hidden="true"></i> Submit
+        <br>
+    <!--================================Submit Button data-toggle="modal" data-target="#results-modal"================================-->
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="submit"  >
+            <i class="fa fa-check-circle"></i> Submit
         </button>     
         <hr>   
     <!--================================API friendslist & GitHub Repo Links================================-->
@@ -167,8 +168,8 @@
         </footer>
     </div>
     <!--================================Modal Display================================-->
-    <div id="results-modal" class="modal fade" role="dialogue">
-        <div class="modal-dialogue modal-dialog-centered modal-lg">
+    <div id="results-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
             <!--modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -180,7 +181,7 @@
                     <img class="img-fluid" id="match-img" src="" alt="friend picture" width="580">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -188,40 +189,79 @@
     
 
     <script type="text/javascript">
-        function collectInput() {
-            $("#submit").on("submit", function(event) {
-                event.preventDefault();
-                var newFriend = {
-                    name: $("#name").val().trim(),
-                    photo: $("#photo").val().trim(),
-                    scores: []
+        
+        var allFieldsComplete;
+
+        $("#submit").on("click", function(event) {
+            collectInput();
+            // checkIfComplete(function() {
+            //     // Proceed with AJAX call if all questions are answered
+            //     if(allFieldsComplete){
+            //         collectInput();
+            //     }
+            //     else{
+            //         alert('Please complete all fields before submitting!');
+            //     }
+            // });
+        });
+
+        function checkIfComplete(callback) {
+            var questionsComplete;
+            $(".chosen-select").each(function() {
+                if ($(this).val() === "") {
+                    questionsComplete = false;
+                }
+            }).promise().done(function() {
+                if (questionsComplete = false) {
+                    allFieldsComplete = false;
+                } else if ( $("#name").val().trim() = "") {
+                    allFieldsComplete = false;
+                } else {
+                    allFieldsComplete = true;
                 };
-                // Loop through Questions to get scores
-                var scoresArray = [];
-                $('.chosen-select').each(function() {
-                    scoresArray.push( parseInt( $(this).val() ) ); // Parse Input Value as integer
-                })
-                // This counters the async behavior of $.each()
-                .promise().done(function(){
-                    
-                    // Push the array of scores to the new friend object
-                    newFriend.scores = scoresArray;
-                    
-                    // POST the newFriend to the friends.js file and get back the best match
-                    var currentURL = window.location.origin;
-                    $.post(currentURL + "/api/friends", newFriend)
-                        .then(function(data) {
-                        console.log("survey.html", data);
-                        ///display info in the modal after running the post method in apiRoutes.js
-                        $("#match-name").text(data.name);
-                        $("#match-img").attr("src", data.photo);
-                        // Show the modal with the best match 
-                        $("#results-modal").modal('toggle');
-                    });
-                });
             });
+            callback(); 
+        };
+        //collect form input
+        function collectInput() {
+            // event.preventDefault();
+            var newFriend = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
+                scores: [
+                    $("#q1").val(),
+                    $("#q2").val(),
+                    $("#q3").val(),
+                    $("#q4").val(),
+                    $("#q5").val(),
+                    $("#q6").val(),
+                    $("#q7").val(),
+                    $("#q8").val(),
+                    $("#q9").val(),
+                    $("#q10").val(),
+                ]
+            };
+            // // Loop through Questions to get scores
+            // var scoresArray = [];
+            // $('.chosen-select').each(function() {
+            //     scoresArray.push( parseInt( $(this).val() ) ); // Parse Input Value as integer
+            // })
+            // // This counters the async behavior of $.each()
+            // .then(
+            function postModel() {
+                // POST the newFriend to the friends.js file and get back the best match
+                var currentURL = window.location.origin;
+                $.post(currentURL + "/api/friends", newFriend)
+                    .then(function(data) {
+                    ///display info in the modal after running the post method in apiRoutes.js
+                    $("#match-name").text(data.name);
+                    $("#match-img").attr("src", data.photo);
+                    // Show the modal with the best match 
+                    $("#results-modal").modal('toggle');
+                });
+            };
+            postModel();
         }
-        collectInput();
     </script>
 </body>
 </html>

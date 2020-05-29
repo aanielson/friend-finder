@@ -19,12 +19,7 @@ module.exports = function (app) {
         // req.body hosts is equal to the JSON post sent from the user
         // This works because of our body parsing middleware
         var newFriend = req.body;
-        // Using a RegEx Pattern to remove spaces from newFriend
-        // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-        newFriend = newFriend.name.replace(/\s+/g, "").toLowerCase();
-        //more stuff here to pull in form input
         friends.push(newFriend);
-        res.json(newFriend);
 
         //-----------------------handle the compatibility logic-----------------------
         //-----------------------no idea how to do this yet-----------------------
@@ -51,7 +46,7 @@ module.exports = function (app) {
             for (var j = 0; j < userScore.length; j++) {
                 // ### Remember to use the absolute value of the differences.
                 //Put another way: no negative solutions! Your app should calculate both 5-3 and 3-5 as 2, and so on.
-                totalDifference += Math.abs(parseInt(friends[i].scores[x]) - parseInt(userScore[x]));             
+                totalDifference += Math.abs(parseInt(friends[i].scores[j]) - parseInt(userScore[j]));             
             }
             //least difference will make the default the first friend
             if (totalDifference < leastDifference) {
@@ -64,6 +59,7 @@ module.exports = function (app) {
                 //now that data can be used on the server.html jquery to fill in the modal
             } 
         }
+        console.log(bestfriend);
         res.json(bestfriend);
     });
 }
