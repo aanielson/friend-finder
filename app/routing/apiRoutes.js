@@ -19,8 +19,6 @@ module.exports = function (app) {
         // req.body hosts is equal to the JSON post sent from the user
         // This works because of our body parsing middleware
         var newFriend = req.body;
-        friends.push(newFriend);
-
         //-----------------------handle the compatibility logic-----------------------
         //-----------------------no idea how to do this yet-----------------------
         
@@ -60,6 +58,7 @@ module.exports = function (app) {
             } 
         }
         console.log(bestfriend);
+        friends.push(newFriend);
         res.json(bestfriend);
     });
 }
