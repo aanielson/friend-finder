@@ -193,16 +193,16 @@
         var allFieldsComplete;
 
         $("#submit").on("click", function(event) {
-            collectInput();
-            // checkIfComplete(function() {
-            //     // Proceed with AJAX call if all questions are answered
-            //     if(allFieldsComplete){
-            //         collectInput();
-            //     }
-            //     else{
-            //         alert('Please complete all fields before submitting!');
-            //     }
-            // });
+            // collectInput();
+            checkIfComplete(function() {
+                // Proceed with AJAX call if all questions are answered
+                if(allFieldsComplete){
+                    collectInput();
+                }
+                else{
+                    alert('Please complete all fields before submitting!');
+                }
+            });
         });
 
         function checkIfComplete(callback) {
@@ -212,9 +212,9 @@
                     questionsComplete = false;
                 }
             }).promise().done(function() {
-                if (questionsComplete = false) {
+                if (questionsComplete === false) {
                     allFieldsComplete = false;
-                } else if ( $("#name").val().trim() = "") {
+                } else if ( $("#name").val().trim() === "") {
                     allFieldsComplete = false;
                 } else {
                     allFieldsComplete = true;
@@ -248,7 +248,7 @@
             // })
             // // This counters the async behavior of $.each()
             // .then(
-            function postModel() {
+            function postModal() {
                 // POST the newFriend to the friends.js file and get back the best match
                 var currentURL = window.location.origin;
                 $.post(currentURL + "/api/friends", newFriend)
@@ -260,7 +260,7 @@
                     $("#results-modal").modal('toggle');
                 });
             };
-            postModel();
+            postModal();
         }
     </script>
 </body>
