@@ -2,7 +2,7 @@
 In this activity, I built a compatibility-based "FriendFinder" application -- basically a dating app. This full-stack site takes in results from users' surveys, then compares their answers with those from other users. The app will then display the name and picture of the user with the best overall match. Express handles routing, and the app is deployed to Heroku so other users can fill it out.
 
 ## Deployed App
-You can view our deployed project by clicking <a href="https://aanielsonfriendfinder.herokuapp.com/">HERE</a>
+You can view the deployed project by clicking <a href="https://aanielsonfriendfinder.herokuapp.com/">HERE</a>
 Watch my demo by clicking <a href="https://youtu.be/DPc9erbdPnE">HERE</a>
 
 ## Set Up
